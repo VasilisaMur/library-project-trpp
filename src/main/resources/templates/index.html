@@ -18,6 +18,12 @@
 <!--    </nav>-->
 </div>
 
+<div>
+    <form th:action="@{/logout}" method="post">
+        <input type="submit" value="Sign Out"/>
+    </form>
+</div>
+
 <div class="book_container">
     <div th:each="el : ${books}" class="book_card">
         <a th:href="'/page/' + ${el.id}"><img th:src="${el.coverLink}" height="300px" width="200px"></a>

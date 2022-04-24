@@ -1,0 +1,17 @@
+<!--<div >-->
+    <header th:fragment="header0">
+        <a href="index.html"><img src="/img/logo.png" alt="logo" width="100px" height="100px"></a>
+        <nav>
+            <a th:href="@{/login}">Вход</a>
+            <a th:href="@{/registration}">Регистрация</a>
+        </nav>
+    </header>
+<!--</div>-->
+
+<header th:fragment="header1">
+    <a href="index.html"><img src="/img/logo.png" alt="logo" width="100px" height="100px"></a>
+    <div class="user_header">
+        <a href="user.html"><img src="https://it-tehnik.ru/wp-content/uploads/female.png" width="60px" height="60px">
+            Имя пользователя</a>
+    </div>
+</header>
