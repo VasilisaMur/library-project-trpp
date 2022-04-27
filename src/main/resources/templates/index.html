@@ -18,11 +18,17 @@
 <!--    </nav>-->
 </div>
 
+
+
 <div>
     <form th:action="@{/logout}" method="post">
-        <input type="submit" value="Sign Out"/>
+        <input type="submit" value="Разлогиниться"/>
     </form>
 </div>
+
+<a th:href="@{/user}">Список пользователей (ADMIN only)</a><br>
+
+<a th:href="@{/user/profile}">Профиль</a>
 
 <div class="book_container">
     <div th:each="el : ${books}" class="book_card">

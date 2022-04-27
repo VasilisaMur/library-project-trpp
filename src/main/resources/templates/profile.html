@@ -18,7 +18,11 @@
             <!--    </nav>-->
         </header>
 
-        
+        <h2 th:text="'Привет, ' + ${username}"/>
+        <form th:action="@{/user/profile}" method="post">
+            <div><label> Password: <input type="password" name="password"/> </label></div> <br>
+            <div><input type="submit" value="Сохранить данные"/></div>
+        </form>
 
     </body>
 </html>

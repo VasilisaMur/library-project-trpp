@@ -5,8 +5,10 @@ import com.project.elib.models.User;
 import com.project.elib.repo.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.prepost.PreAuthorize;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.util.StringUtils;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.Arrays;
@@ -16,17 +18,19 @@ import java.util.stream.Collectors;
 
 @Controller
 @RequestMapping("/user")
-@PreAuthorize("hasAuthority('ADMIN')")
+
 public class UserController {
     @Autowired
     private UserRepository userRepository;
 
+    @PreAuthorize("hasAuthority('ADMIN')")
     @GetMapping
     public String userList(Model model){
         model.addAttribute("users", userRepository.findAll());
         return "userList";
     }
 
+    @PreAuthorize("hasAuthority('ADMIN')")
     @GetMapping("{user}")
     public String userEditForm(@PathVariable User user, Model model){
         model.addAttribute("user", user);
@@ -34,6 +38,7 @@ public class UserController {
         return "userEdit";
     }
 
+    @PreAuthorize("hasAuthority('ADMIN')")
     @PostMapping
     public String userSave(
             @RequestParam String username,
@@ -58,5 +63,26 @@ public class UserController {
         userRepository.save(user);
 
         return "redirect:/user";
+    }
+
+    @GetMapping("profile")
+    public String getProfile(Model model, @AuthenticationPrincipal User user) {
+        model.addAttribute("username", user.getUsername());
+
+        return "profile";
+    }
+
+    @PostMapping("profile")
+    public String updateProfile(
+            @AuthenticationPrincipal User user,
+            @RequestParam String password){
+
+        if (!StringUtils.isEmpty(password)) {
+            user.setPassword(password);
+        }
+
+        userRepository.save(user);
+
+        return "redirect:/user/profile";
     }
 }
