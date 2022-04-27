@@ -17,6 +17,7 @@
     <div th:each="el : ${users}" class="user_card">
         <p th:text="${el.username} + ' ' + ${el.roles}"/>
         <a th:href="'/user/' + ${el.id}">Редактировать</a>
+
     </div>
 </div>
 
