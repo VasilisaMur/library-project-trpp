@@ -1,18 +1,24 @@
 package com.project.elib.models;
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
+import javax.persistence.*;
 
 @Entity
 public class Books {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
+    @Lob
+    @Column
     private String coverLink, bookName, bookDesc;
     private boolean isRead;
 
     public Books() {
+    }
+
+    public Books(String bookName, String bookDesc, String coverLink, boolean isRead) {
+        this.coverLink = coverLink;
+        this.bookName = bookName;
+        this.bookDesc = bookDesc;
+        this.isRead = isRead;
     }
 
     public Long getId() {

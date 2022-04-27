@@ -1,0 +1,18 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Добавление книги</title>
+</head>
+<body>
+<form th:action="@{/add}" method="post">
+    <input type="text" name="book_name" placeholder="Название книги"><br><br>
+    <input type="text" name="book_desc" placeholder="Описание книги"><br><br>
+    <input type="text" name="cover_link" placeholder="Ссылка на обложку"><br><br>
+    <input type="text" name="is_read" value="true" placeholder="Прочитана ли"><br><br>
+    <textarea name="full_text" placeholder="Текст книги"></textarea><br><br>
+    <button type="submit">Сохранить</button>
+</form>
+
+</body>
+</html>

@@ -7,6 +7,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import java.util.ArrayList;
@@ -40,7 +41,24 @@ public class MainController {
             return "book-desc";
         }
 
+        @GetMapping("/add")
+        public String bookAddForm(Model model){
+            return "bookAdd";
+        }
 
+        @PostMapping("/add")
+        public String bookSave(@RequestParam String book_name, @RequestParam String book_desc,
+                               @RequestParam String cover_link, @RequestParam String is_read, Model model){
+            Books book = new Books(
+                    book_name,
+                    book_desc,
+                    cover_link,
+                    Boolean.parseBoolean(is_read));
+
+            booksRepository.save(book);
+
+            return "redirect:/";
+        }
     }
 
 
