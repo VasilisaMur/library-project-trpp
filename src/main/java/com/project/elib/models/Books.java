@@ -13,6 +13,16 @@ public class Books {
     private String coverLink, bookName, bookDesc;
     private boolean isRead;
 
+    public String getShopLink() {
+        return shopLink;
+    }
+
+    public void setShopLink(String shopLink) {
+        this.shopLink = shopLink;
+    }
+
+    private String shopLink;
+
     public Books() {
     }
 
