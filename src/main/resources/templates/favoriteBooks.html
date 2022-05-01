@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Библиотека</title>
+    <link rel="shortcut icon" href="img/favicon.png" type="image/x-icon">
+    <!--    <link rel="stylesheet" href="elib\src\main\resources\static\style.css">-->
+    <link th:href="@{style.css}" rel="stylesheet" />
+</head>
+<body>
+
+<h1>Ваши любимые книги</h1>
+
+<div class="book_container">
+    <div th:each="el : ${books}" class="book_card">
+        <a th:href="'/page/' + ${el.id}"><img th:src="${el.coverLink}" onerror="this.src='img/no-cover.gif'" height="300px" width="200px"></a>
+        <p th:text="${el.bookName}"/>
+    </div>
+
+</div>
+
+</body>
+</html>

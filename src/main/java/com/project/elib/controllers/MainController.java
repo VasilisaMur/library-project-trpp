@@ -1,8 +1,10 @@
 package com.project.elib.controllers;
 
 import com.project.elib.models.Books;
+import com.project.elib.models.User;
 import com.project.elib.repo.BooksRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -32,8 +34,13 @@ public class MainController {
     public class BooksController {
 
         @GetMapping("/page/{id}")
-        public String bookPage (@PathVariable(value="id") long id, Model model) {
+        public String bookPage (
+                @AuthenticationPrincipal User currentUser,
+                @PathVariable(value="id") long id,
+                Model model) {
             model.addAttribute("bookDesc", "bookDesc");
+
+
             Optional<Books> books = booksRepository.findById(id);
             ArrayList<Books> res = new ArrayList<>();
             books.ifPresent(res::add);

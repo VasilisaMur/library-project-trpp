@@ -1,12 +1,16 @@
 package com.project.elib.controllers;
 
+import com.project.elib.models.Books;
 import com.project.elib.models.Role;
 import com.project.elib.models.User;
 import com.project.elib.repo.UserRepository;
+import com.sun.org.apache.xpath.internal.operations.Mod;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.stereotype.Controller;
+import org.springframework.transaction.annotation.Propagation;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.ui.Model;
 import org.springframework.util.StringUtils;
 import org.springframework.web.bind.annotation.*;
@@ -68,6 +72,7 @@ public class UserController {
     @GetMapping("profile")
     public String getProfile(Model model, @AuthenticationPrincipal User user) {
         model.addAttribute("username", user.getUsername());
+        model.addAttribute("books", user.getFavoriteBooks());
 
         return "profile";
     }
@@ -84,5 +89,41 @@ public class UserController {
         userRepository.save(user);
 
         return "redirect:/user/profile";
+    }
+
+    @GetMapping("favorites/add/{book}")
+    public String addBookToFavorite(
+            @AuthenticationPrincipal User user,
+            @PathVariable Books book,
+            Model model){
+
+        book.getSubscribers().add(user);
+        userRepository.save(user);
+
+        return "redirect:/page/" + book.getId();
+
+    }
+
+    @GetMapping("favorites/remove/{book}")
+    public String removeBookToFavorite(
+            @AuthenticationPrincipal User user,
+            @PathVariable Books book,
+            Model model){
+
+        book.getSubscribers().remove(user);
+        userRepository.save(user);
+
+        return "redirect:/page/" + book.getId();
+
+    }
+
+    @GetMapping("favorites")
+    public String favoriteBooksList(
+            Model model,
+            @AuthenticationPrincipal User user
+    ){
+        model.addAttribute("books", user.getFavoriteBooks());
+
+        return "favoriteBooks";
     }
 }

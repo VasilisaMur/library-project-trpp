@@ -22,13 +22,11 @@
                 <div th:each="el : ${books}" class="book_card">
                     <img th:src="${el.coverLink}" height="300px" width="200px">
                     <p th:text="${el.bookName}"/>
-                <div>
-                    <input type="checkbox" name="isRead">
-                    <label for="isRead">Книга прочитана</label>
+                    <div>
+                        <a th:href="'/user/favorites/add/' + ${el.id}"> добавить в избранное</a>
+                    </div>
                 </div>
-                 </div>
             </div>
-
             <div class="box2">
                 <div th:each="el : ${books}" class="book_description">
                     <p th:text="${el.bookDesc}" />
