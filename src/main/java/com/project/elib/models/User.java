@@ -1,14 +1,12 @@
 package com.project.elib.models;
 
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
 import javax.persistence.*;
-import java.util.Collection;
-import java.util.HashMap;
-import java.util.HashSet;
-import java.util.Set;
+import java.util.*;
 
 @Entity
 public class User implements UserDetails {
@@ -21,8 +19,8 @@ public class User implements UserDetails {
     public User() {
     }
 
-    @ManyToMany(mappedBy = "subscribers")
-    private Set<Books> favoriteBooks = new HashSet<>();
+    @ManyToMany(mappedBy = "subscribers", fetch = FetchType.EAGER)
+    private Set<Books> favorites = new HashSet<>();
 
     @ElementCollection(targetClass = Role.class, fetch = FetchType.EAGER)
     @CollectionTable(name="user_role", joinColumns = @JoinColumn(name = "user_id"))
@@ -96,11 +94,11 @@ public class User implements UserDetails {
         this.roles = roles;
     }
 
-    public Set<Books> getFavoriteBooks() {
-        return favoriteBooks;
+    public Set<Books> getFavorites() {
+        return favorites;
     }
 
-    public void setFavoriteBooks(Set<Books> favoriteBooks) {
-        this.favoriteBooks = favoriteBooks;
+    public void setFavorites(Set<Books> favorites) {
+        this.favorites = favorites;
     }
 }

@@ -1,4 +1,6 @@
 package com.project.elib.models;
+import org.hibernate.annotations.Cascade;
+
 import javax.persistence.*;
 import java.util.HashSet;
 import java.util.Set;
@@ -26,14 +28,15 @@ public class Books {
     public Books() {
     }
 
-    public Books(String bookName, String bookDesc, String coverLink, boolean isRead) {
+    public Books(String bookName, String bookDesc, String coverLink, boolean isRead, String shopLink) {
         this.coverLink = coverLink;
         this.bookName = bookName;
         this.bookDesc = bookDesc;
         this.isRead = isRead;
+        this.shopLink = shopLink;
     }
 
-    @ManyToMany
+    @ManyToMany(fetch = FetchType.EAGER)
     @JoinTable(
             name = "favorite_books",
             joinColumns = @JoinColumn(name = "favbook_id"),

@@ -35,10 +35,11 @@ public class MainController {
 
         @GetMapping("/page/{id}")
         public String bookPage (
-                @AuthenticationPrincipal User currentUser,
+                @AuthenticationPrincipal User user,
                 @PathVariable(value="id") long id,
                 Model model) {
             model.addAttribute("bookDesc", "bookDesc");
+            //model.addAttribute("books", user.getFavorites());
 
 
             Optional<Books> books = booksRepository.findById(id);
@@ -55,12 +56,14 @@ public class MainController {
 
         @PostMapping("/add")
         public String bookSave(@RequestParam String book_name, @RequestParam String book_desc,
-                               @RequestParam String cover_link, @RequestParam String is_read, Model model){
+                               @RequestParam String cover_link, @RequestParam String is_read,
+                               @RequestParam String shopLink, Model model){
             Books book = new Books(
                     book_name,
                     book_desc,
                     cover_link,
-                    Boolean.parseBoolean(is_read));
+                    Boolean.parseBoolean(is_read),
+                    shopLink);
 
             booksRepository.save(book);
 
