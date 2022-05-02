@@ -3,6 +3,7 @@ package com.project.elib.controllers;
 import com.project.elib.models.Books;
 import com.project.elib.models.Role;
 import com.project.elib.models.User;
+import com.project.elib.repo.BooksRepository;
 import com.project.elib.repo.UserRepository;
 import com.sun.org.apache.xpath.internal.operations.Mod;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -17,6 +18,7 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.Arrays;
 import java.util.Map;
+import java.util.Objects;
 import java.util.Set;
 import java.util.stream.Collectors;
 
@@ -26,6 +28,9 @@ import java.util.stream.Collectors;
 public class UserController {
     @Autowired
     private UserRepository userRepository;
+
+    @Autowired
+    private BooksRepository booksRepository;
 
     @PreAuthorize("hasAuthority('ADMIN')")
     @GetMapping
@@ -98,7 +103,10 @@ public class UserController {
             Model model){
 
         book.getSubscribers().add(user);
+        user.getFavorites().add(book);
+
         userRepository.save(user);
+        booksRepository.save(book);
 
         return "redirect:/page/" + book.getId();
 
@@ -110,8 +118,13 @@ public class UserController {
             @PathVariable Books book,
             Model model){
 
-        book.getSubscribers().remove(user);
+        // Костыль, перебирает коллекцию в поисках User с таким же id и удаляет связь
+        book.getSubscribers().removeIf(collectionUser -> Objects.equals(collectionUser.getId(), user.getId()));
+
+        user.getFavorites().removeIf(collectionBook -> Objects.equals(collectionBook.getId(), book.getId()));
+
         userRepository.save(user);
+        booksRepository.save(book);
 
         return "redirect:/page/" + book.getId();
 

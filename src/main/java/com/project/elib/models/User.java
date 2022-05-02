@@ -19,7 +19,7 @@ public class User implements UserDetails {
     public User() {
     }
 
-    @ManyToMany(mappedBy = "subscribers", fetch = FetchType.EAGER)
+    @ManyToMany(mappedBy = "subscribers", fetch = FetchType.EAGER, cascade = CascadeType.ALL)
     private Set<Books> favorites = new HashSet<>();
 
     @ElementCollection(targetClass = Role.class, fetch = FetchType.EAGER)

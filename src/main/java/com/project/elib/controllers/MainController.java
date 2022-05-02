@@ -57,13 +57,13 @@ public class MainController {
         @PostMapping("/add")
         public String bookSave(@RequestParam String book_name, @RequestParam String book_desc,
                                @RequestParam String cover_link, @RequestParam String is_read,
-                               @RequestParam String shopLink, Model model){
+                               @RequestParam String shop_link, Model model){
             Books book = new Books(
                     book_name,
                     book_desc,
                     cover_link,
                     Boolean.parseBoolean(is_read),
-                    shopLink);
+                    shop_link);
 
             booksRepository.save(book);
 

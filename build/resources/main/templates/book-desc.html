@@ -23,7 +23,8 @@
                     <img th:src="${el.coverLink}" height="300px" width="200px">
                     <p th:text="${el.bookName}"/>
                     <div>
-                        <a th:href="'/user/favorites/add/' + ${el.id}"> добавить в избранное</a>
+                        <a th:href="'/user/favorites/add/' + ${el.id}"> добавить в избранное</a><br>
+                        <a th:href="'/user/favorites/remove/' + ${el.id}"> убрать из избранного</a>
                     </div>
                 </div>
             </div>

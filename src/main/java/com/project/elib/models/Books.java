@@ -36,7 +36,7 @@ public class Books {
         this.shopLink = shopLink;
     }
 
-    @ManyToMany(fetch = FetchType.EAGER)
+    @ManyToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
     @JoinTable(
             name = "favorite_books",
             joinColumns = @JoinColumn(name = "favbook_id"),
