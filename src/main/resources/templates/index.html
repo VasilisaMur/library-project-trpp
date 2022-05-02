@@ -30,6 +30,8 @@
 
 <a th:href="@{/user/profile}">Профиль</a>
 
+<a th:href="@{/add}">Добавить книгу (ADMIN only)</a>
+
 <div class="book_container">
     <div th:each="el : ${books}" class="book_card">
         <a th:href="'/page/' + ${el.id}"><img th:src="${el.coverLink}" onerror="this.src='img/no-cover.gif'" height="300px" width="200px"></a>
