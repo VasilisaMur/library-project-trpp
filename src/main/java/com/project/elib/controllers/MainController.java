@@ -39,7 +39,6 @@ public class MainController {
                 @PathVariable(value="id") long id,
                 Model model) {
             model.addAttribute("bookDesc", "bookDesc");
-            //model.addAttribute("books", user.getFavorites());
 
 
             Optional<Books> books = booksRepository.findById(id);

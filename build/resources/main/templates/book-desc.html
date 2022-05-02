@@ -24,7 +24,8 @@
                     <p th:text="${el.bookName}"/>
                     <div>
                         <a th:href="'/user/favorites/add/' + ${el.id}"> добавить в избранное</a><br>
-                        <a th:href="'/user/favorites/remove/' + ${el.id}"> убрать из избранного</a>
+                        <a th:href="'/user/favorites/remove/' + ${el.id}"> убрать из избранного</a><br>
+                        <a th:href="${el.shopLink}"> Перейти в магазин</a><br>
                     </div>
                 </div>
             </div>
@@ -35,7 +36,7 @@
             </div>
 
             <div class="box3">
-                
+
             </div>
 
          </div>
