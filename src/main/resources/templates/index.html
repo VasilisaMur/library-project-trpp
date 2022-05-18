@@ -1,3 +1,5 @@
+
+
 <!DOCTYPE html>
 <html lang="ru" xmlns:th="http://www.thymeleaf.org">
     <head>
@@ -31,6 +33,10 @@
 <a th:href="@{/user/profile}">Профиль</a>
 
 <a th:href="@{/add}">Добавить книгу (ADMIN only)</a>
+
+<p>Types</p>
+<li th:each="type : ${types}"><a th:href="@{/(genre=${type.getId()})}" th:text="${type.getName()}">TEXT</a></li>
+
 
 <div class="book_container">
     <div th:each="el : ${books}" class="book_card">

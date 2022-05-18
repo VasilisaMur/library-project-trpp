@@ -5,6 +5,7 @@ import com.project.elib.models.Role;
 import com.project.elib.models.User;
 import com.project.elib.repo.BooksRepository;
 import com.project.elib.repo.UserRepository;
+import com.project.elib.repo.TypeRepository;
 import com.sun.org.apache.xpath.internal.operations.Mod;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.prepost.PreAuthorize;
@@ -31,6 +32,9 @@ public class UserController {
 
     @Autowired
     private BooksRepository booksRepository;
+
+    @Autowired
+    private TypeRepository typeRepository;
 
     @PreAuthorize("hasAuthority('ADMIN')")
     @GetMapping

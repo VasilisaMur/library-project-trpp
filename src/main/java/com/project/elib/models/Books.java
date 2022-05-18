@@ -6,6 +6,7 @@ import java.util.HashSet;
 import java.util.Set;
 
 @Entity
+@Table(name = "books")
 public class Books {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -24,16 +25,18 @@ public class Books {
     }
 
     private String shopLink;
+    private int genre;
 
     public Books() {
     }
 
-    public Books(String bookName, String bookDesc, String coverLink, boolean isRead, String shopLink) {
+    public Books(String bookName, String bookDesc, String coverLink, boolean isRead, String shopLink, int genre) {
         this.coverLink = coverLink;
         this.bookName = bookName;
         this.bookDesc = bookDesc;
         this.isRead = isRead;
         this.shopLink = shopLink;
+        this.genre = genre;
     }
 
     @ManyToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
@@ -90,5 +93,13 @@ public class Books {
 
     public void setSubscribers(Set<User> subscribers) {
         this.subscribers = subscribers;
+    }
+
+    public int getGenre() {
+        return genre;
+    }
+
+    public void setGenre(int genre) {
+        this.genre = genre;
     }
 }
