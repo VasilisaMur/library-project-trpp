@@ -27,6 +27,7 @@
                 <div th:each="el : ${books}" class="book_card">
                     <img th:src="${el.coverLink}" height="300px" width="200px">
                     <p th:text="${el.bookName}"/>
+                    <p th:text="${el.Author}"/>
                     <div>
                         <a th:if="${isInUsersFavorites} == 'false'" th:href="'/user/favorites/add/' + ${el.id}"> добавить в избранное</a><br>
                         <a th:if="${isInUsersFavorites} == 'true'" th:href="'/user/favorites/remove/' + ${el.id}"> убрать из избранного</a><br>

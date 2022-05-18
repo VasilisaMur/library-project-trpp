@@ -42,6 +42,7 @@
     <div th:each="el : ${books}" class="book_card">
         <a th:href="'/page/' + ${el.id}"><img th:src="${el.coverLink}" onerror="this.src='img/no-cover.gif'" height="300px" width="200px"></a>
         <p th:text="${el.bookName}"/>
+        <p th:text="${el.Author}"/>
     </div>
 
 </div>

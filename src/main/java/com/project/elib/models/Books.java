@@ -26,17 +26,19 @@ public class Books {
 
     private String shopLink;
     private int genre;
+    private String author;
 
     public Books() {
     }
 
-    public Books(String bookName, String bookDesc, String coverLink, boolean isRead, String shopLink, int genre) {
+    public Books(String bookName, String bookDesc, String coverLink, boolean isRead, String shopLink, int genre, String author) {
         this.coverLink = coverLink;
         this.bookName = bookName;
         this.bookDesc = bookDesc;
         this.isRead = isRead;
         this.shopLink = shopLink;
         this.genre = genre;
+        this.author = author;
     }
 
     @ManyToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
@@ -101,5 +103,13 @@ public class Books {
 
     public void setGenre(int genre) {
         this.genre = genre;
+    }
+
+    public String getAuthor() {
+        return author;
+    }
+
+    public void setAuthor(String author) {
+        this.author = author;
     }
 }

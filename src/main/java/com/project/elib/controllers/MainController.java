@@ -37,6 +37,7 @@ public class MainController {
                            @AuthenticationPrincipal User user) {
         // для if '[ADMIN]'
         model.addAttribute("auth", user.getAuthorities().toString());
+
         model.addAttribute("title", "Main page");
         model.addAttribute("types", typeService.getAllTypes());
         model.addAttribute("genre", genre);
@@ -94,7 +95,8 @@ public class MainController {
         @PostMapping("/add")
         public String bookSave(@RequestParam String book_name, @RequestParam String book_desc,
                                @RequestParam String cover_link, @RequestParam String is_read,
-                               @RequestParam String shop_link, @RequestParam int genre, Model model){
+                               @RequestParam String shop_link, @RequestParam int genre,
+                               @RequestParam String author, Model model){
 
             Books book = new Books(
                     book_name,
@@ -102,7 +104,8 @@ public class MainController {
                     cover_link,
                     Boolean.parseBoolean(is_read),
                     shop_link,
-                    genre);
+                    genre,
+                    author);
 
             booksRepository.save(book);
 
