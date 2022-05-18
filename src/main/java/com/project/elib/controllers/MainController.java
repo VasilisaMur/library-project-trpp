@@ -43,7 +43,7 @@ public class MainController {
         model.addAttribute("genre", genre);
         Iterable<Books> books = bookService.getAllBooks();
 
-        if (genre == null) {
+        if (genre == null || genre == 1) {
             model.addAttribute("books", books);
         }
         else{
