@@ -15,10 +15,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Optional;
-import java.util.Set;
+import java.util.*;
 
 @Controller
 public class MainController {
@@ -36,7 +33,10 @@ public class MainController {
 
     @GetMapping("/")
     public String mainPage(Model model,
-                           @RequestParam(name = "genre", required = false) Integer genre) {
+                           @RequestParam(name = "genre", required = false) Integer genre,
+                           @AuthenticationPrincipal User user) {
+        // для if '[ADMIN]'
+        model.addAttribute("auth", user.getAuthorities().toString());
         model.addAttribute("title", "Main page");
         model.addAttribute("types", typeService.getAllTypes());
         model.addAttribute("genre", genre);
@@ -64,9 +64,25 @@ public class MainController {
 
 
             Optional<Books> books = booksRepository.findById(id);
+
             ArrayList<Books> res = new ArrayList<>();
             books.ifPresent(res::add);
             model.addAttribute("books", res);
+            //для замены кнопки добавления/удаления из избранного
+            Set<User> users = res.get(0).getSubscribers();
+            Boolean flag = false;
+            for (User el : users){
+                if (Objects.equals(el.getId(), user.getId())) {
+                    flag = true;
+                    break;
+                }
+
+            }
+            if (flag)
+                model.addAttribute("isInUsersFavorites", "true");
+            else
+                model.addAttribute("isInUsersFavorites", "false");
+
             return "book-desc";
         }
 
